@@ -6,6 +6,8 @@ I. Actor types:
      hare
    
 II.  How do actors communicate?
+     * All communication is messages passed between hare and world, between lynx and world. 
+     * I don't believe hare and lynx should communicate. Still debatable.
      
 III. 
 
