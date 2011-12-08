@@ -13,3 +13,4 @@ class Hare extends Actor {
    def receive = {
       
    }
+}

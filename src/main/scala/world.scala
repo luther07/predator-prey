@@ -9,3 +9,4 @@ class World extends Actor {
    def receive = {
       
    }
+}
