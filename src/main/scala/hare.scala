@@ -11,6 +11,6 @@ class Hare extends Actor {
    private val random = new Random()
 
    def receive = {
-      
+      case Reproduce => println("hare reproduced")      
    }
 }
