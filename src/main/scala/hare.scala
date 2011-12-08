@@ -7,7 +7,7 @@ case object Reproduce
 case object NaturalDeath
 case object PredatorDeath
 
-class Hare extends Actor {
+class Hare(val id: Int) extends Actor {
    private val random = new Random()
 
    def receive = {
