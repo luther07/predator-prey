@@ -1,0 +1,14 @@
+Document describing architecture for predator-prey simulation.
+
+I. Actor types:
+     world
+     lynx
+     hare
+   
+II.  How do actors communicate?
+     
+III. 
+
+IV.  
+
+V.   
