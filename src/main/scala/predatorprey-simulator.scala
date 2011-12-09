@@ -17,8 +17,8 @@ object PredatorPreySimulator {
   private val lynxs = new mutable.ArrayBuffer[akka.actor.ActorRef]()
   private val world = actorOf(new World)
 
-  def generateHares {
-    for (i <- 1 to 20) {
+  def generateHares(n: Int) {
+    for (i <- 1 to n) {
       val hare = actorOf(new Hare(i))
       hare.start()
       hares += hare
@@ -26,8 +26,8 @@ object PredatorPreySimulator {
 
     println("[!] generated " + hares.size + " hares")
   }
-  def generateLynxs {
-    for (i <- 1 to 20) {
+  def generateLynxs(n: Int) {
+    for (i <- 1 to n){
       val lynx = actorOf(new Lynx(i))
       lynx.start()
       lynxs += lynx
@@ -40,8 +40,8 @@ object PredatorPreySimulator {
     println("[!] starting predator-prey simulation")
     world.start()
 
-  generateHares
-  generateLynxs
+  generateHares(20)
+  generateLynxs(20)
 
   System.exit(0)
   }
