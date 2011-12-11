@@ -20,7 +20,7 @@ object PredatorPreySimulator {
 
   def generateHares(n: Int) {
     for (i <- 1 to n) {
-      val hare = actorOf(new Hare(i))
+      val hare = system.actorOf(new Hare(i))
       hare.start()
       hares += hare
     }
@@ -30,7 +30,7 @@ object PredatorPreySimulator {
 
   def generateLynxs(n: Int) {
     for (i <- 1 to n){
-      val lynx = actorOf(new Lynx(i))
+      val lynx = system.actorOf(new Lynx(i))
       lynx.start()
       lynxs += lynx
     }
