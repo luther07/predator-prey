@@ -1,0 +1,4 @@
+Predator-prey simulation with Akka actors.
+
+Per akka docs, ! means "fire-and-forget", asynchronously, also known as "tell".
+Per akka docs, ? sends a message asynchronously, and returns a Future immediately. This Future represents a possible reply, also known as "ask".
