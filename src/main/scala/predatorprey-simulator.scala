@@ -2,6 +2,7 @@ package predatorprey
 
 import akka.actor.Actor
 import akka.actor.Actor._
+import akka.actor.{PoisonPill}
 import scala.collection.{immutable, mutable}
 import scala.util.Random
 
@@ -26,6 +27,7 @@ object PredatorPreySimulator {
 
     println("[!] generated " + hares.size + " hares")
   }
+
   def generateLynxs(n: Int) {
     for (i <- 1 to n){
       val lynx = actorOf(new Lynx(i))
@@ -36,12 +38,22 @@ object PredatorPreySimulator {
     println("[!] generated " + lynxs.size + " lynxs")
   }
 
+  def shutdownHare(n: Int) {
+    hares(n) ! PoisonPill
+  }
+
+  def isAliveHare() {
+    hares.map(_ ! Alive)
+    }
+
   def main(args: Array[String]) {
     println("[!] starting predator-prey simulation")
     world.start()
 
   generateHares(20)
   generateLynxs(20)
+  shutdownHare(0)
+  isAliveHare()
 
   System.exit(0)
   }
