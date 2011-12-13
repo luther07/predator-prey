@@ -11,14 +11,17 @@ class World extends Actor {
    private val random = new Random()
    private val hares = new mutable.ArrayBuffer[akka.actor.ActorRef]()
    private val lynxs = new mutable.ArrayBuffer[akka.actor.ActorRef]()
+   private var begin: Long = 0
 
    override def preStart {
       generateHares(20)
-      generateLynxs(20)   
+      generateLynxs(20)
+      begin = System.currentTimeMillis()
    }      
 
    def receive = {
-      case Time => println("The time is...")   
+      //Here we want to send a message back to the caller, with the value from evaluating getTime()
+      case Time => println("The time is...")
    }
 
    def generateHares(n: Int) {
@@ -37,6 +40,11 @@ class World extends Actor {
          lynxs += lynx
       }
       println("[!!] generated " + hares.size + " lynxes")
+   }
+
+   def getTime(): Long =  {
+      val now = System.currentTimeMillis()
+      ((now - begin)/1000)
    }
 
    def shutdownHare(n: Int) {
