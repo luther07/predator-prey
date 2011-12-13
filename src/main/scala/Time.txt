@@ -1,0 +1,16 @@
+I. How do we model Time?
+
+  A. Idea 1 - Based on time elapsed since initial call to currentTimeMillis()
+
+    1. World keeps the time. World gets currentTimeMillis() at the beginning. 
+       When an actor sends a message asking for the time, the world responds
+       with some representation of the ammount of time elapsed since the
+       first call to currentTimeMillis().
+    2. Actors store their own Date of Birth
+    3. Actors store a rate that represents the increment of time it must wait
+       between successive reproduction.
+    4. Actor stores the time of its last reproduction.
+    5. When actor gets the currentTime, it evaluates predicate: (Time > (LastReproductionTime + ReproductionIncrement))
+       If true, then the actor reproduces. If false, do nothing.
+
+II. Idea 2?
