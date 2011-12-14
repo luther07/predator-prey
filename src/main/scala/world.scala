@@ -43,8 +43,8 @@ class World extends Actor {
    }
 
    def getTime(): Long =  {
-      val now = System.currentTimeMillis()
-      ((now - begin)/1000)
+      val relativeTime = (System.currentTimeMillis() - begin)
+      relativeTime
    }
 
    def shutdownHare(n: Int) {
