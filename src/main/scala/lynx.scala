@@ -7,10 +7,10 @@ import scala.util.Random
 //case object NaturalDeath already defined in hare.scala, will causes error
 
 class Lynx(val id: Int) extends Actor {
+   import self._
    private val random = new Random()
 
    def receive = {
-      case Reproduce => println("lynx reproduced")
-      case Alive => println("[" + id + "] I'm alive")
+      case Alive => self.reply(AliveTrue)
    }
 }

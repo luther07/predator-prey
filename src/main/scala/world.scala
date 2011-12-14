@@ -8,6 +8,7 @@ import scala.util.Random
 case object Time
 
 class World extends Actor {
+   import self._
    private val random = new Random()
    private val hares = new mutable.ArrayBuffer[akka.actor.ActorRef]()
    private val lynxs = new mutable.ArrayBuffer[akka.actor.ActorRef]()
