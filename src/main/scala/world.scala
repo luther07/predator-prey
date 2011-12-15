@@ -5,7 +5,7 @@ import scala.collection.{immutable, mutable}
 import akka.actor.{PoisonPill}
 import scala.util.Random
 
-case object Time
+case object Time // used by lynx and hare actors to request time from world
 
 class World extends Actor {
    import self._

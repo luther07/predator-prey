@@ -10,7 +10,8 @@ class Lynx(val id: Int) extends Actor {
    def receive = {
       case Alive => self.reply(AliveTrue)
       case ReturnedTime(n) => {
-
+         // other sequential work before asking for the time again
+         self.reply(Time)
       }
    }
 }
