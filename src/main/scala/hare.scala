@@ -24,15 +24,24 @@ class Hare(val id: Int) extends Actor {
       case Alive => self.reply(AliveTrue)
       case ReturnedTime(n) => {
          // other sequential work before asking for the time again
-         // query, can reproduce? Implement function.
+         // query, can reproduce? Implement function below.
          reproduce(n)
-         // query, die of old age? Implement function.
-         // Move. Implement function.
+         // query, die of old age? Implement function below.
+         naturaldeath(n)
+         // Move. Implement function below.
+         move()
          self.reply(Time) // request time from world                  
       }
    }
 
    def reproduce(n: Long) {
              
+   }
+   def naturaldeath(n: Long) {
+
+   }
+
+   def move() {
+
    }
 }
