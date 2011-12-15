@@ -3,7 +3,6 @@ import akka.actor.Actor
 import akka.actor.Actor._
 import scala.util.Random
 
-case object Reproduce // purpose: ?
 case object ReproduceTrue // purpose: send to world in order to reproduce
 case object NaturalDeath // purpose: ? 
 case object PredatorDeath // purpose: ?
@@ -23,7 +22,7 @@ class Hare(val id: Int) extends Actor {
    def receive = {
       case Alive => self.reply(AliveTrue)
       case ReturnedTime(n) => {
-         
+                  
       }
    }
 }
