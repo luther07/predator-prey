@@ -9,6 +9,8 @@ case object NaturalDeath // purpose: ?
 case object PredatorDeath // purpose: ?
 case object Alive // (debugging purpose) message world can send to lynx and hare to ask if alive
 case object AliveTrue // (debugging purpose) message lynx and hare return to world to indicate alive
+case object ReqDOB // purpose: send msg to world requesting what will be the actor's date of birth 
+case class DateOfBirth(millisecs: Long) // purpose: message 
 case class ReturnedTime(millisecs: Long) // purpose: world-time received from world after requesting time 
 
 /* id is a simple identifier, which we probably won't need in the end,
@@ -20,8 +22,19 @@ class Hare(val id: Int) extends Actor {
    private var lastReproduction = 0
    private val reproductionRateMillis: Long = 30000
 
+   override def preStart {
+      PredatorPreySimulator.world ! ReqDOB
+   }
+
    def receive = {
-      case Alive => self.reply(AliveTrue)
+      case DateOfBirth(n) => {
+         val birthday = n
+         self.reply(Time)
+      }
+      case Alive => {
+         self.reply(AliveTrue)
+         self.reply(Time)
+      }
       case ReturnedTime(n) => {
          // other sequential work before asking for the time again
          // query, can reproduce? Implement function below.
@@ -30,12 +43,15 @@ class Hare(val id: Int) extends Actor {
          naturaldeath(n)
          // Move. Implement function below.
          move()
+         println("[h" + id + "] received time from world")
          self.reply(Time) // request time from world                  
       }
+      case(_) => self.reply(Time)
    }
 
    def reproduce(n: Long) {
-             
+      if(n > (lastReproduction + reproductionRateMillis))
+         self.reply(ReproduceHare)             
    }
    def naturaldeath(n: Long) {
 

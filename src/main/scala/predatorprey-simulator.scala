@@ -14,7 +14,7 @@ import scala.util.Random
 object PredatorPreySimulator {
   private val random = new Random()
   //maybe pass in some arguments to World actor?
-  private val world = actorOf(new World)
+  val world = actorOf(new World)
 
   def main(args: Array[String]) {
     println("[!] starting predator-prey simulation")
