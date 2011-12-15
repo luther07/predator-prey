@@ -22,7 +22,9 @@ class World extends Actor {
 
    def receive = {
       //Here we want to send a message back to the caller, with the value from evaluating getTime()
-      case Time => println("The time is...")
+      case Time => {
+         ReturnedTime(getTime())
+      }
    }
 
    def generateHares(n: Int) {
