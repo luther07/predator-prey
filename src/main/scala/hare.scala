@@ -3,7 +3,8 @@ import akka.actor.Actor
 import akka.actor.Actor._
 import scala.util.Random
 
-case object ReproduceTrue // purpose: send to world in order to reproduce
+case object ReproduceHare // purpose: send to world for hare to reproduce
+case object ReproduceLynx // purpose: send to world for lynx to reproduce
 case object NaturalDeath // purpose: ? 
 case object PredatorDeath // purpose: ?
 case object Alive // (debugging purpose) message world can send to lynx and hare to ask if alive
