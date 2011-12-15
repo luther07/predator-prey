@@ -17,7 +17,7 @@ class World extends Actor {
    override def preStart {
       generateHares(20)
       generateLynxs(20)
-      begin = System.currentTimeMillis()
+      val begin = System.currentTimeMillis()
    }      
 
    def receive = {
