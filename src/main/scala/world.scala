@@ -12,12 +12,12 @@ class World extends Actor {
    private val random = new Random()
    private val hares = new mutable.ArrayBuffer[akka.actor.ActorRef]()
    private val lynxs = new mutable.ArrayBuffer[akka.actor.ActorRef]()
-   private var begin: Long = 0
+   private var beginTime: Long = 0
 
    override def preStart {
       generateHares(20)
       generateLynxs(20)
-      val begin = System.currentTimeMillis()
+      beginTime = System.currentTimeMillis()
    }      
 
    def receive = {
