@@ -54,10 +54,11 @@ class Hare(val id: Int) extends Actor {
          self.reply(ReproduceHare)             
    }
    def naturaldeath(n: Long) {
-
+   
    }
 
    def move() {
-
+	   val getRandomX : Int = (math.random * WorldConfiguration.worldWidth).toInt
+	   val getRandomY : Int = (math.random * WorldConfiguration.worldHeight).toInt
    }
 }
