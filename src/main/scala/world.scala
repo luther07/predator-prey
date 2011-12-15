@@ -15,8 +15,9 @@ class World extends Actor {
    private var beginTime: Long = 0
 
    override def preStart {
-      generateHares(20)
-      generateLynxs(20)
+      generateHares(WorldConfiguration.initialHares)
+      generateLynxs(WorldConfiguration.initialLynx)
+      
       beginTime = System.currentTimeMillis()
    }      
 

@@ -1,4 +1,4 @@
-package main.scala
+package predatorprey
 
 object WorldConfiguration {
     val worldWidth : Int = 800
