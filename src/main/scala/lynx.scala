@@ -11,6 +11,9 @@ class Lynx(val id: Int) extends Actor {
       case Alive => self.reply(AliveTrue)
       case ReturnedTime(n) => {
          // other sequential work before asking for the time again
+         // query, can reproduce? Implement function.
+         // query, die of old age? Implement function.
+         // Move. Implement function.
          self.reply(Time)
       }
    }
