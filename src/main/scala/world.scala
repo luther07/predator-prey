@@ -23,7 +23,7 @@ class World extends Actor {
    def receive = {
       //Here we want to send a message back to the caller, with the value from evaluating getTime()
       case Time => {
-         ReturnedTime(getTime())
+         self.reply(ReturnedTime(getTime()))
       }
    }
 
@@ -46,7 +46,7 @@ class World extends Actor {
    }
 
    def getTime(): Long =  {
-      val relativeTime = (System.currentTimeMillis() - begin)
+      val relativeTime = (System.currentTimeMillis() - beginTime)
       relativeTime
    }
 

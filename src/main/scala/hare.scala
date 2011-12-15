@@ -24,9 +24,14 @@ class Hare(val id: Int) extends Actor {
       case ReturnedTime(n) => {
          // other sequential work before asking for the time again
          // query, can reproduce? Implement function.
+         reproduce(n)
          // query, die of old age? Implement function.
          // Move. Implement function.
          self.reply(Time) // request time from world                  
       }
+   }
+
+   def reproduce(n: Long) {
+             
    }
 }
