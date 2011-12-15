@@ -50,6 +50,10 @@ class World extends Actor {
       relativeTime
    }
 
+   def shutdownLynx(n: Int) {
+      lynxs(n) ! PoisonPill
+   }
+
    def shutdownHare(n: Int) {
       hares(n) ! PoisonPill
    }
