@@ -5,10 +5,10 @@ object WorldConfiguration {
 	val worldHeight : Int = 800
 	val initialHares : Int = 100
 	val initialLynx : Int = 100
-	val hareBirthRate : Double = .5
-	val maxHareAge : Int = 15
+	val hareBirthRate : Long = 30000 //30 seconds
+	val maxHareAge : Long = 300000 // 300 seconds
 	val lynxEnergyToReproduce = 10
 	val energyPerEatenHare = 40
-	val maxLynxAge : Int = 15
+	val maxLynxAge : Long = 600000 //600 seconds
     
 }
