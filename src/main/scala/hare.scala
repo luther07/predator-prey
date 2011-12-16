@@ -19,8 +19,7 @@ case class ReturnedTime(millisecs: Long) // purpose: world-time received from wo
 class Hare(val id: Int) extends Actor {
    import self._
    private val random = new Random()
-   private var lastReproduction = 0
-   private val reproductionRateMillis: Long = 30000
+   private var lastReproduction : Long = 0
 
    override def preStart {
       PredatorPreySimulator.world ! ReqDOB
@@ -50,8 +49,10 @@ class Hare(val id: Int) extends Actor {
    }
 
    def reproduce(n: Long) {
-      if(n > (lastReproduction + reproductionRateMillis))
+      if(n > (lastReproduction + WorldConfiguration.hareBirthRate)) {
+         lastReproduction = lastReproduction + WorldConfiguration.hareBirthRate
          self.reply(ReproduceHare)             
+      }
    }
    def naturaldeath(n: Long) {
    

@@ -26,6 +26,7 @@ class World extends Actor {
       case Time => self.reply(ReturnedTime(getTime()))
       case ReqDOB => self.reply(DateOfBirth(getTime()))
       case ReproduceHare => hareReproduce()
+      case ReproduceLynx => lynxReproduce()
    }
 
    def generateHares(n: Int) {
@@ -55,10 +56,18 @@ class World extends Actor {
       lynxs(n) ! PoisonPill
    }
 
+   def lynxReproduce() {
+      val lynx = actorOf(new Lynx(0))
+      lynx.start()
+      lynxs += lynx
+      println("[w] World reports that a lynx reproduced")
+   }
+
    def hareReproduce() {
-      val hare = actorOf(new Hare(0)
+      val hare = actorOf(new Hare(0))
       hare.start()
       hares += hare
+      println("[w] World reports that a hare reproduced")
    }
 
    def shutdownHare(n: Int) {

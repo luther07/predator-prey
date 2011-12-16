@@ -6,6 +6,7 @@ import scala.util.Random
 class Lynx(val id: Int) extends Actor {
    import self._
    private val random = new Random()
+   private var lastReproduction : Long = 0
 
    override def preStart {
       PredatorPreySimulator.world ! ReqDOB
@@ -26,7 +27,15 @@ class Lynx(val id: Int) extends Actor {
          // query, die of old age? Implement function.
          // Move. Implement function.
          //println("[l" + id + "] received time from world")
+         reproduce(n)
          self.reply(Time)
+      }
+   }
+
+   def reproduce(n: Long) {
+      if(n > (lastReproduction + WorldConfiguration.lynxBirthRate)) {
+         lastReproduction = lastReproduction + WorldConfiguration.lynxBirthRate
+         self.reply(ReproduceLynx)
       }
    }
 }
