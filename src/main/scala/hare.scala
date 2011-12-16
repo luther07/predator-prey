@@ -20,6 +20,7 @@ class Hare(val id: Int) extends Actor {
    import self._
    private val random = new Random()
    private var lastReproduction : Long = 0
+   private var birthday : Long = 0
 
    override def preStart {
       PredatorPreySimulator.world ! ReqDOB
@@ -27,7 +28,7 @@ class Hare(val id: Int) extends Actor {
 
    def receive = {
       case DateOfBirth(n) => {
-         val birthday = n
+         birthday = n
          self.reply(Time)
       }
       case Alive => {
