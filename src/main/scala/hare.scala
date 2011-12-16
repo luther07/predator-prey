@@ -45,6 +45,7 @@ class Hare(val id: Int) extends Actor {
          naturaldeath(n)
          // Move. Implement function below.
          move()
+         self.reply(HareLocation(xcoord, ycoord))
          //println("[h" + id + "] received time from world")
          self.reply(Time) // request time from world                  
       }
