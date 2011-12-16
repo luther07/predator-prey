@@ -19,4 +19,9 @@ val MillisTime: Long = 100
     lynxRef ! DateOfBirth(MillisTime)
     expectMsg(Time)
   }
+
+  within (1 second) {
+    lynxRef ! ReturnedTime(MillisTime)
+    expectMsg(Time)
+  }
 }
