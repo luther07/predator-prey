@@ -57,7 +57,8 @@ class Hare(val id: Int) extends Actor {
       }
    }
    def naturaldeath(n: Long) {
-   
+      if((n - birthday) > WorldConfiguration.maxHareAge)
+         self.reply(NaturalDeath)   
    }
 
    def move() {
