@@ -10,13 +10,13 @@ val MillisTime: Long = 100
   val lynxActor = lynxRef.underlyingActor
 
   within (1 second) {
-    lynxRef ! Alive
-    expectMsg(AliveTrue)
+    lynxRef ! DateOfBirth(MillisTime)
     expectMsg(Time)
   }
 
   within (1 second) {
-    lynxRef ! DateOfBirth(MillisTime)
+    lynxRef ! Alive
+    expectMsg(AliveTrue)
     expectMsg(Time)
   }
 
