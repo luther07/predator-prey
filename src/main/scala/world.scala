@@ -27,6 +27,7 @@ class World extends Actor {
       case ReqDOB => self.reply(DateOfBirth(getTime()))
       case ReproduceHare => hareReproduce()
       case ReproduceLynx => lynxReproduce()
+      case NaturalDeath => self.reply(PoisonPill)
       case _ => println("[w] world: no action")
    }
 

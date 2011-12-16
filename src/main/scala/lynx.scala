@@ -45,11 +45,13 @@ class Lynx(val id: Int) extends Actor {
    }
 
    def naturaldeath(n: Long) {
-
+      if((n - birthday) > WorldConfiguration.maxLynxAge)
+         self.reply(NaturalDeath)         
    }
 
    def move() {
       xcoord = (math.random * WorldConfiguration.worldWidth).toInt
       ycoord = (math.random * WorldConfiguration.worldHeight).toInt
+      println("[l" + id + "] moved to (" + xcoord.toString() + "," + ycoord.toString() + ")")
    }
 }

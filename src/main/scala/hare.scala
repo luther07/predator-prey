@@ -21,6 +21,7 @@ class Hare(val id: Int) extends Actor {
    private val random = new Random()
    private var lastReproduction : Long = 0
    private var birthday : Long = 0
+   private var (xcoord:Int, ycoord:Int) = (0,0)
 
    override def preStart {
       PredatorPreySimulator.world ! ReqDOB
@@ -60,7 +61,8 @@ class Hare(val id: Int) extends Actor {
    }
 
    def move() {
-	   val getRandomX : Int = (math.random * WorldConfiguration.worldWidth).toInt
-	   val getRandomY : Int = (math.random * WorldConfiguration.worldHeight).toInt
+	   xcoord = (math.random * WorldConfiguration.worldWidth).toInt
+	   ycoord = (math.random * WorldConfiguration.worldHeight).toInt
+           println("[h" + id + "] moved to (" + xcoord.toString() + "," + ycoord.toString() + ")")
    }
 }
