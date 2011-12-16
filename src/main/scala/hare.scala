@@ -12,6 +12,7 @@ case object AliveTrue // (debugging purpose) message lynx and hare return to wor
 case object ReqDOB // purpose: send msg to world requesting what will be the actor's date of birth 
 case class DateOfBirth(millisecs: Long) // purpose: message 
 case class ReturnedTime(millisecs: Long) // purpose: world-time received from world after requesting time 
+case class HareLocation(x: Int, y: Int) // purpose: Hare passes this message to world to report location 
 
 /* id is a simple identifier, which we probably won't need in the end,
    but we may want to add other arguments to this constructor */

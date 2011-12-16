@@ -14,6 +14,14 @@ class World extends Actor {
    private val lynxs = new mutable.ArrayBuffer[akka.actor.ActorRef]()
    private var beginTime: Long = 0
 
+/* We need a data structure for storing location of hares.
+   Maybe a hashmap with a key that is a tuple like
+   (x,y). This is a major TODO
+   ******
+   Then hares will constantly be reporting their location, via a 
+   "case class HareLocation(x,y).
+    */
+
    override def preStart {
       generateHares(WorldConfiguration.initialHares)
       generateLynxs(WorldConfiguration.initialLynx)
@@ -28,6 +36,7 @@ class World extends Actor {
       case ReproduceHare => hareReproduce()
       case ReproduceLynx => lynxReproduce()
       case NaturalDeath => self.reply(PoisonPill)
+      case HareLocation(x,y) => println("update location data") //TODO implement
       case _ => println("[w] world: no action")
    }
 
