@@ -38,13 +38,14 @@ class Hare(val id: Int) extends Actor {
          self.reply(Time)
       }
       case ReturnedTime(n) => {
-         // other sequential work before asking for the time again
-         // query, can reproduce? Implement function below.
+         // sequential work
+         // reproduce?
          reproduce(n)
-         // query, die of old age? Implement function below.
+         // die of old age?
          naturaldeath(n)
-         // Move. Implement function below.
+         // Move
          move()
+         // Send location information to world
          self.reply(HareLocation(xcoord, ycoord))
          //println("[h" + id + "] received time from world")
          self.reply(Time) // request time from world                  
