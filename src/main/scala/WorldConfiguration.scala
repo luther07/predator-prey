@@ -7,6 +7,7 @@ object WorldConfiguration {
 	val initialLynx : Int = 100
 	val hareBirthRate : Long = 30000 //30 seconds
 	val maxHareAge : Long = 300000 // 300 seconds
+        val initialLynxEnergy = 10
 	val lynxEnergyToReproduce = 10
 	val energyPerEatenHare = 40
         val lynxBirthRate : Long = 60000 //60 seconds
