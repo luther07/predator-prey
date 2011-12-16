@@ -25,6 +25,7 @@ class World extends Actor {
       //Here we want to send a message back to the caller, with the value from evaluating getTime()
       case Time => self.reply(ReturnedTime(getTime()))
       case ReqDOB => self.reply(DateOfBirth(getTime()))
+      case ReproduceHare => hareReproduce()
    }
 
    def generateHares(n: Int) {
@@ -52,6 +53,12 @@ class World extends Actor {
 
    def shutdownLynx(n: Int) {
       lynxs(n) ! PoisonPill
+   }
+
+   def hareReproduce() {
+      val hare = actorOf(new Hare(0)
+      hare.start()
+      hares += hare
    }
 
    def shutdownHare(n: Int) {

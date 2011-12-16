@@ -25,7 +25,7 @@ class Lynx(val id: Int) extends Actor {
          // query, can reproduce? Implement function.
          // query, die of old age? Implement function.
          // Move. Implement function.
-         println("[l" + id + "] received time from world")
+         //println("[l" + id + "] received time from world")
          self.reply(Time)
       }
    }

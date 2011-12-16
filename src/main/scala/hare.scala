@@ -43,7 +43,7 @@ class Hare(val id: Int) extends Actor {
          naturaldeath(n)
          // Move. Implement function below.
          move()
-         println("[h" + id + "] received time from world")
+         //println("[h" + id + "] received time from world")
          self.reply(Time) // request time from world                  
       }
       case(_) => self.reply(Time)
