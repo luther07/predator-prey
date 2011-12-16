@@ -16,7 +16,10 @@ class Lynx(val id: Int) extends Actor {
          val birthday = n
          self.reply(Time)
       }
-      case Alive => self.reply(AliveTrue)
+      case Alive => {
+         self.reply(AliveTrue)
+         self.reply(Time)
+      }
       case ReturnedTime(n) => {
          // other sequential work before asking for the time again
          // query, can reproduce? Implement function.
