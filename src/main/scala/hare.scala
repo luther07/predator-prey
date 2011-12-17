@@ -6,6 +6,7 @@ import scala.util.Random
 case object ReproduceHare // purpose: send to world for hare to reproduce
 case object ReproduceLynx // purpose: send to world for lynx to reproduce
 case object NaturalDeath // purpose: ? 
+case object EnergyDeath // Used for killing lynx when energy <= 0
 case object PredatorDeath // purpose: ?
 case object Alive // (debugging purpose) message world can send to lynx and hare to ask if alive
 case object AliveTrue // (debugging purpose) message lynx and hare return to world to indicate alive

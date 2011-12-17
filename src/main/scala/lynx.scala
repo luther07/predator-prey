@@ -9,6 +9,7 @@ class Lynx(val id: Int) extends Actor {
    private var lastReproduction : Long = 0
    private var birthday : Long = 0
    var (xcoord : Int, ycoord : Int) = (0,0)
+   var energy : Int = WorldConfiguration.defaultEnergy
 
    override def preStart {
       PredatorPreySimulator.world ! ReqDOB
@@ -26,6 +27,10 @@ class Lynx(val id: Int) extends Actor {
       case ReturnedTime(n) => {
          // other sequential work before asking for the time again
          // query, can reproduce? Implement function.
+         useEnergy()
+         tryToEatHare()
+         changeAge()
+         checkForDeath()
          reproduce(n)
          // query, die of old age? Implement function.
          naturaldeath(n)
@@ -36,7 +41,28 @@ class Lynx(val id: Int) extends Actor {
       }
       case (_) => self.reply(Time)
    }
-
+   
+   def useEnergy() {
+       energy = energy - 1
+   }
+   
+   def tryToEatHare() {
+       
+   }
+   
+   def changeAge(){
+       
+   }
+   
+   
+   def checkForDeath(){
+       if(energy == 0){
+           self.reply(EnergyDeath)
+       }
+   }
+   
+   
+   
    def reproduce(n: Long) {
       if(n > (lastReproduction + WorldConfiguration.lynxBirthRate)) {
          lastReproduction = lastReproduction + WorldConfiguration.lynxBirthRate

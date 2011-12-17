@@ -12,5 +12,6 @@ object WorldConfiguration {
 	val energyPerEatenHare = 40
         val lynxBirthRate : Long = 60000 //60 seconds
 	val maxLynxAge : Long = 600000 //600 seconds
+	val defaultEnergy = 10
     
 }
