@@ -6,6 +6,8 @@ import akka.actor.{PoisonPill}
 import scala.util.Random
 
 case object Time // used by lynx and hare actors to request time from world
+case class DeleteHareLocation(x: Int, y: Int)
+case class AddHareLocation(x: Int, y: Int)
 
 class World extends Actor {
    import self._
@@ -13,14 +15,7 @@ class World extends Actor {
    private val hares = new mutable.ArrayBuffer[akka.actor.ActorRef]()
    private val lynxs = new mutable.ArrayBuffer[akka.actor.ActorRef]()
    private var beginTime: Long = 0
-
-/* We need a data structure for storing location of hares.
-   Maybe a hashmap with a key that is a tuple like
-   (x,y). This is a major TODO
-   ******
-   Then hares will constantly be reporting their location, via a 
-   "case class HareLocation(x,y).
-    */
+   private val hareLocations = new mutable.ArrayBuffer[Option[akka.actor.ActorRef]]()
 
    override def preStart {
       generateHares(WorldConfiguration.initialHares)
@@ -36,7 +31,8 @@ class World extends Actor {
       case ReproduceHare => hareReproduce()
       case ReproduceLynx => lynxReproduce()
       case NaturalDeath => self.reply(PoisonPill)
-      case HareLocation(x,y) => println("update location data") //TODO implement
+      case DeleteHareLocation(x,y) => deletehare(x,y) 
+      case AddHareLocation(x,y) => addhare(x,y)
       case _ => println("[w] world: no action")
    }
 
@@ -87,5 +83,18 @@ class World extends Actor {
 
    def isAliveHare() {
       hares.map(_ ! Alive)
+   }
+
+   def deletehare(x: Int, y: Int) {
+      val xyMap = y * WorldConfiguration.worldWidth + x
+      val mySender = None
+      hareLocations.insert(xyMap, mySender)
+   }
+
+   // can overwrite another hare, then the later hare can get eaten, because the index has its reference
+   def addhare(x: Int, y: Int) {
+      val xyMap = y * WorldConfiguration.worldWidth + x
+      val mySender = self.getSender()
+      hareLocations.insert(xyMap, mySender)
    }
 }
