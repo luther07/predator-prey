@@ -36,6 +36,7 @@ class World extends Actor {
       case ReproduceHare => hareReproduce()
       case ReproduceLynx => lynxReproduce()
       case NaturalDeath => self.reply(PoisonPill)
+      case EnergyDeath => self.reply(PoisonPill)
       case HareLocation(x,y) => println("update location data") //TODO implement
       case _ => println("[w] world: no action")
    }
