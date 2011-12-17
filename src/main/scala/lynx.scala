@@ -12,10 +12,9 @@ class Lynx(val id: Int) extends Actor {
    private var birthday : Long = 0
    var (xcoord : Int, ycoord : Int) = (0,0)
    var energy : Int = WorldConfiguration.defaultEnergy
-   var age : Int = 0
    
 
-   private var (lynxX:Int, lynxY:Int) = (0,0)
+   case class lynxLocation(lynxX:Int, lynxY: Int)
    override def preStart {
       PredatorPreySimulator.world ! ReqDOB
    }
@@ -37,13 +36,11 @@ class Lynx(val id: Int) extends Actor {
          move()
          useEnergy()
          tryToEatHare(n)
-         changeAge()
          checkForDeath()
          reproduce(n)
          // query, die of old age? Implement function.
          naturaldeath(n)
          // Move. Implement function.
-         self.reply(LynxLocation(lynxX, lynxY))
          //println("[l" + id + "] received time from world")
          self.reply(Time)
       }
@@ -55,12 +52,7 @@ class Lynx(val id: Int) extends Actor {
    }
    
    def tryToEatHare(n : Long) {
-       
-   }
-   
-   def changeAge(){
-       age = age + 1
-   }
+   }   
    
    
    def checkForDeath(){
@@ -84,8 +76,9 @@ class Lynx(val id: Int) extends Actor {
    }
 
    def move() {
-      lynxX = (math.random * WorldConfiguration.worldWidth).toInt
-      lynxY = (math.random * WorldConfiguration.worldHeight).toInt
+      var lynxX = (math.random * WorldConfiguration.worldWidth).toInt
+      var lynxY = (math.random * WorldConfiguration.worldHeight).toInt
+      self.reply(lynxLocation(lynxX, lynxY))
       println("[l" + id + "] moved to (" + xcoord.toString() + "," + ycoord.toString() + ")")
    }
 }
