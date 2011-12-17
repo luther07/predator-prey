@@ -35,15 +35,17 @@ class Lynx(val id: Int) extends Actor {
          // query, can reproduce? Implement function.
          move()
          updateEnergy()
-         checkForHare()
          checkForDeath()
          reproduce(n)
          // query, die of old age? Implement function.
          naturaldeath(n)
          // Move. Implement function.
-         self.reply(EatHareEnergy)
          //println("[l" + id + "] received time from world")
          
+         self.reply(Time)
+      }
+      case(EatHareEnergy) => {
+         energy = energy + WorldConfiguration.energyPerEatenHare
          self.reply(Time)
       }
       case (_) => self.reply(Time)
@@ -51,10 +53,6 @@ class Lynx(val id: Int) extends Actor {
    
    def updateEnergy() {
        energy = energy - 1
-   }
-   def checkForHare() {
-	   energy = energy + WorldConfiguration.energyPerEatenHare
-       self.reply(EatHareEnergy)
    }
    
    def checkForDeath(){
