@@ -105,7 +105,11 @@ class World extends Actor {
       val xyMap = y * WorldConfiguration.worldWidth + x
       val maybeHare: Option[akka.actor.ActorRef] = hareLocations(xyMap)
       maybeHare match {
-         case Some(x: akka.actor.ActorRef) => x ! PoisonPill
+         case Some(x: akka.actor.ActorRef) => { 
+            x ! PoisonPill
+            hareLocations.insert(xyMap, None)
+            self.reply(EatHareEnergy)
+         }
          case None => 
       }
    }
