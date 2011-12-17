@@ -8,6 +8,7 @@ import scala.util.Random
 case object Time // used by lynx and hare actors to request time from world
 case class DeleteHareLocation(x: Int, y: Int)
 case class AddHareLocation(x: Int, y: Int)
+case object EatHareEnergy
 
 class World extends Actor {
    import self._
@@ -34,7 +35,7 @@ class World extends Actor {
       case DeleteHareLocation(x,y) => deletehare(x,y) 
       case AddHareLocation(x,y) => addhare(x,y)
       case EnergyDeath => self.reply(PoisonPill)
-      case HareLocation(x,y) => println("update location data") //TODO implement
+      case lynxLocation(lynxX: Int,lynxY: Int) => findHare(lynxX,lynxY)
       case _ => println("[w] world: no action")
    }
 
@@ -99,4 +100,14 @@ class World extends Actor {
       val mySender = self.getSender()
       hareLocations.insert(xyMap, mySender)
    }
+
+   def findHare(x: Int, y: Int) {
+      val xyMap = y * WorldConfiguration.worldWidth + x
+      val maybeHare: Option[akka.actor.ActorRef] = hareLocations(xyMap)
+      maybeHare match {
+         case Some(x: akka.actor.ActorRef) => x ! PoisonPill
+         case None => 
+      }
+   }
+
 }
