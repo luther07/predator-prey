@@ -14,6 +14,7 @@ case object ReqDOB // purpose: send msg to world requesting what will be the act
 case class DateOfBirth(millisecs: Long) // purpose: message 
 case class ReturnedTime(millisecs: Long) // purpose: world-time received from world after requesting time 
 case class HareLocation(x: Int, y: Int) // purpose: Hare passes this message to world to report location 
+case class LynxLocation(x: Int, y: Int) 
 
 /* id is a simple identifier, which we probably won't need in the end,
    but we may want to add other arguments to this constructor */

@@ -3,6 +3,8 @@ import akka.actor.Actor
 import akka.actor.Actor._
 import scala.util.Random
 
+
+
 class Lynx(val id: Int) extends Actor {
    import self._
    private val random = new Random()
@@ -10,11 +12,16 @@ class Lynx(val id: Int) extends Actor {
    private var birthday : Long = 0
    var (xcoord : Int, ycoord : Int) = (0,0)
    var energy : Int = WorldConfiguration.defaultEnergy
+   var age : Int = 0
+   
 
+   private var (lynxX:Int, lynxY:Int) = (0,0)
    override def preStart {
       PredatorPreySimulator.world ! ReqDOB
    }
 
+
+   
    def receive = {
       case DateOfBirth(n) => {
          birthday = n
@@ -27,15 +34,16 @@ class Lynx(val id: Int) extends Actor {
       case ReturnedTime(n) => {
          // other sequential work before asking for the time again
          // query, can reproduce? Implement function.
+         move()
          useEnergy()
-         tryToEatHare()
+         tryToEatHare(n)
          changeAge()
          checkForDeath()
          reproduce(n)
          // query, die of old age? Implement function.
          naturaldeath(n)
          // Move. Implement function.
-         move()
+         self.reply(LynxLocation(lynxX, lynxY))
          //println("[l" + id + "] received time from world")
          self.reply(Time)
       }
@@ -46,12 +54,12 @@ class Lynx(val id: Int) extends Actor {
        energy = energy - 1
    }
    
-   def tryToEatHare() {
+   def tryToEatHare(n : Long) {
        
    }
    
    def changeAge(){
-       
+       age = age + 1
    }
    
    
@@ -76,8 +84,8 @@ class Lynx(val id: Int) extends Actor {
    }
 
    def move() {
-      xcoord = (math.random * WorldConfiguration.worldWidth).toInt
-      ycoord = (math.random * WorldConfiguration.worldHeight).toInt
+      lynxX = (math.random * WorldConfiguration.worldWidth).toInt
+      lynxY = (math.random * WorldConfiguration.worldHeight).toInt
       println("[l" + id + "] moved to (" + xcoord.toString() + "," + ycoord.toString() + ")")
    }
 }
