@@ -19,7 +19,7 @@ case class LynxLocation(x: Int, y: Int)
 /* id is a simple identifier, which we probably won't need in the end,
    but we may want to add other arguments to this constructor */
 
-class Hare(val id: Int) extends Actor {
+class Hare extends Actor {
    import self._
    private val random = new Random()
    private var lastReproduction : Long = 0

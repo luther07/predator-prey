@@ -5,7 +5,7 @@ import scala.util.Random
 
 case class lynxLocation(lynxX:Int, lynxY: Int)
 
-class Lynx(val id: Int) extends Actor {
+class Lynx extends Actor {
    import self._
    private val random = new Random()
    private var lastReproduction : Long = 0

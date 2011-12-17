@@ -42,7 +42,7 @@ class World extends Actor {
 
    def generateHares(n: Int) {
       for(i <- 1 to n) {
-         val hare = actorOf(new Hare(i))
+         val hare = actorOf(new Hare())
          hare.start()
          hares += hare
       }
@@ -51,7 +51,7 @@ class World extends Actor {
 
    def generateLynxs(n: Int) {
       for(i <- 1 to n) {
-         val lynx = actorOf(new Lynx(i))
+         val lynx = actorOf(new Lynx())
          lynx.start()
          lynxs += lynx
       }
@@ -68,14 +68,14 @@ class World extends Actor {
    }
 
    def lynxReproduce() {
-      val lynx = actorOf(new Lynx(0))
+      val lynx = actorOf(new Lynx())
       lynx.start()
       lynxs += lynx
       println("[w] World reports that a lynx reproduced")
    }
 
    def hareReproduce() {
-      val hare = actorOf(new Hare(0))
+      val hare = actorOf(new Hare())
       hare.start()
       hares += hare
       println("[w] World reports that a hare reproduced")
