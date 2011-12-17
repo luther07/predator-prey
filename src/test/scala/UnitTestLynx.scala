@@ -24,4 +24,9 @@ val MillisTime: Long = 100
     lynxRef ! ReturnedTime(MillisTime)
     expectMsg(Time)
   }
+
+  within (1 second) {
+    lynxRef ! EatHareEnergy
+    expectMsg(Time)
+  }
 }
