@@ -92,7 +92,6 @@ class World extends Actor {
    def deletehare(x: Int, y: Int) {
       val xyMap = y * WorldConfiguration.worldWidth + x
       hareLocations(xyMap) = None
-      //hareLocations.insert(xyMap, mySender)
    }
 
    // can overwrite another hare, then the later hare can get eaten, because the index has its reference
@@ -100,7 +99,6 @@ class World extends Actor {
       val xyMap = y * WorldConfiguration.worldWidth + x
       val mySender = self.getSender()
       hareLocations(xyMap) = mySender
-      //hareLocations.insert(xyMap, mySender)
    }
 
    def findHare(x: Int, y: Int) {
