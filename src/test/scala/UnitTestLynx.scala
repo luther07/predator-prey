@@ -1,37 +1,44 @@
 package predatorprey
+import org.scalatest.matchers.{ShouldMatchers, MustMatchers}
+import org.scalatest.{WordSpec, BeforeAndAfterAll}
+import akka.actor.Actor._
+import akka.testkit.TestKit
+import java.util.concurrent.TimeUnit
 import akka.testkit.TestActorRef
+import akka.actor.{ActorRef, Actor}
 import akka.testkit._
 import akka.util.duration._
+import util.Random
 
-class LynxTestActor extends TestKit {
-val MillisTime: Long = 100
+class LynxTestActor extends WordSpec with BeforeAndAfterAll with ShouldMatchers with TestKit {
 
-  val lynxRef = TestActorRef[Hare].start()
-  val lynxActor = lynxRef.underlyingActor
+  val lynxRef = TestActorRef(new Lynx)
+  val MillisTime: Long = 100
 
-  within (1 second) {
-    lynxRef ! DateOfBirth(MillisTime)
-    expectMsg(Time)
+  override protected def beforeAll(): scala.Unit = {
+    lynxRef.start()
   }
 
-  within (1 second) {
-    lynxRef ! Alive
-    expectMsg(AliveTrue)
-    expectMsg(Time)
+  override protected def afterAll(): scala.Unit = {
+    lynxRef.stop
   }
 
-  within (1 second) {
-    lynxRef ! ReturnedTime(MillisTime)
-    expectMsg(Time)
-  }
+  "A LynxTestActor" should {
+    "Handle and respond to these messages" in { 
 
-  within (1 second) {
-    lynxRef ! EatHareEnergy
-    expectMsg(Time)
-  }
-
-  within (1 second) {
-    lynxRef ! MillisTime
-    expectMsg(Time)
+      within (1 second) {
+        lynxRef ! DateOfBirth(MillisTime)
+        expectMsg(Time)
+        lynxRef ! Alive
+        expectMsg(AliveTrue)
+        expectMsg(Time)
+        lynxRef ! ReturnedTime(MillisTime)
+        expectMsg(Time)
+        lynxRef ! EatHareEnergy
+        expectMsg(Time)
+        lynxRef ! MillisTime
+        expectMsg(Time)
+      }
+    }
   }
 }

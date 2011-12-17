@@ -1,71 +1,62 @@
 package predatorprey
+import org.scalatest.matchers.{ShouldMatchers, MustMatchers}
+import org.scalatest.{WordSpec, BeforeAndAfterAll}
+import akka.actor.Actor._
+import akka.testkit.TestKit
+import java.util.concurrent.TimeUnit
 import akka.testkit.TestActorRef
+import akka.actor.{ActorRef, Actor}
 import akka.testkit._
 import akka.util.duration._
+import util.Random
 import akka.actor.{PoisonPill}
 
-class WorldTestActor extends TestKit {
+class WorldTestActor extends WordSpec with BeforeAndAfterAll with ShouldMatchers with TestKit {
 
-  val worldRef = TestActorRef[World].start()
-  val worldActor = worldRef.underlyingActor
+  val worldRef = TestActorRef(new World)
   val TimeMillis: Long = 100
 
+  override protected def beforeAll(): scala.Unit = {
+    worldRef.start()
+  }
+
+  override protected def afterAll(): scala.Unit = {
+    worldRef.stop()
+  }
+
+  "A WorldTestActor" should {
+    "Handle and respond to these messages" in {
+
 /* we don't know what the value wrapped in ReturnedTime will be */
-  within (1 seconds) {
-    worldRef ! Time
-    expectMsg(ReturnedTime(TimeMillis))
-  }
-
+      within (1 seconds) {
+        worldRef ! Time
+        expectMsg(ReturnedTime(TimeMillis))
 /* we don't know what the value wrapped in DateOfBirth will be */
-  within (1 seconds) {
-    worldRef ! ReqDOB
-    expectMsg(DateOfBirth(TimeMillis))
-  }
-
+        worldRef ! ReqDOB
+        expectMsg(DateOfBirth(TimeMillis))
 /* as stand-alone test, world will not send any messages in response, because Reproduce increment will require passage of time */
-  within (1 seconds) {
-    worldRef ! ReproduceHare
-    expectMsg()
-  }
-
+        worldRef ! ReproduceHare
+        expectMsg()
 /* as stand-alone test, world will not send any message in response, because Reproduce increment will require passage of time */
-  within (1 seconds) {
-    worldRef ! ReproduceLynx
-    expectMsg()
-  }
-
-  within (1 seconds) {
-    worldRef ! NaturalDeath
-    expectMsg(PoisonPill)
-  }
-
+        worldRef ! ReproduceLynx
+        expectMsg()
+        worldRef ! NaturalDeath
+        expectMsg(PoisonPill)
 /* null, never responds */
-  within (1 seconds) {
-    worldRef ! DeleteHareLocation(0,0)
-    expectMsg()
-  }
-
+        worldRef ! DeleteHareLocation(0,0)
+        expectMsg()
 /* null, never responds */
-  within (1 seconds) {
-    worldRef ! AddHareLocation(0,0)
-    expectMsg()
-  }
-
-  within (1 seconds) {
-    worldRef ! EnergyDeath
-    expectMsg(PoisonPill)
-  }
-
+        worldRef ! AddHareLocation(0,0)
+        expectMsg()
+        worldRef ! EnergyDeath
+        expectMsg(PoisonPill)
 /* null, to receive a return message would require the existence of hares in the world, which do not exist in a simple atomic test */ 
-  within (1 seconds) {
-    worldRef ! LynxLocation(0,0)
-    expectMsg()
-  }
-
+        worldRef ! LynxLocation(0,0)
+        expectMsg()
 /* this tests the final case in world's receive method to see if it handles arbitrary messages */
-  within (1 seconds) {
-    worldRef ! TimeMillis
-    expectMsg(Time)
+        worldRef ! TimeMillis
+        expectMsg(Time)
+      }
+    }
   }
-
 }
