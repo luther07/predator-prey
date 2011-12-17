@@ -3,7 +3,7 @@ import akka.actor.Actor
 import akka.actor.Actor._
 import scala.util.Random
 
-
+case class lynxLocation(lynxX:Int, lynxY: Int)
 
 class Lynx(val id: Int) extends Actor {
    import self._
@@ -14,7 +14,7 @@ class Lynx(val id: Int) extends Actor {
    var energy : Int = WorldConfiguration.defaultEnergy
    
 
-   case class lynxLocation(lynxX:Int, lynxY: Int)
+  
    override def preStart {
       PredatorPreySimulator.world ! ReqDOB
    }
@@ -51,7 +51,8 @@ class Lynx(val id: Int) extends Actor {
        energy = energy - 1
    }
    
-   def tryToEatHare(n : Long) {
+   def tryToEatHare(n : Long) {	
+//       self.reply(lynxLocation(lynxX, lynxY))
    }   
    
    
