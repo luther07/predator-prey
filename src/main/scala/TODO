@@ -1,3 +1,25 @@
 TODO:
-hare.scala
-lynx.scala
+
+System and method for storing location information for the purposes of lynx eating hares.
+What sort of model would make this fast and easy?
+How about if lynx can eat anything within 10 spaces in either direction?
+Lynx puts messages in it's main loop, a method that fires off 100 requests to kill any hares in locations (x1, y1), (x2,y2), etc...
+If we do this, then we probably want to lower the lynx population and extend their birthRate to a higher number, more seconds between reproducing.
+So ideally, a location tuple (x,y) is the key and the hare's unique uuid is the value in a hashmap.
+The lynx sends a ton of requests, if any are success, then I imagine the world can extract the hare unique uuid and lookup the hare in the actor registry
+and kill off that hare. So basically we need a hashmap, maybe with collision detection handling so that only one (key,value) per hash.
+
+ActorRegistry: Finding Actors¶
+Actors can be looked up by using the akka.actor.Actor.registry: akka.actor.ActorRegistry. Lookups for actors through this registry can be done by:
+    * uuid akka.actor.Uuid – this uses the uuid field in the Actor class, returns the actor reference for the actor with specified uuid, if one exists, otherwise None
+
+
+Need to still implement some messages related to energy.
+
+How do lynx expend energy?
+
+I created some simple tests in src/test/scala, but I need to figure out how to make them run.
+
+There is an issue with lynx. They don't seem as active with some of the activities that I expect them to be doing.
+
+
