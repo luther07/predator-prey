@@ -24,4 +24,10 @@ class HareTestActor extends TestKit {
     hareRef ! ReturnedTime(TimeMillis)
     expectMsg(Time)
   }
+
+/* this tests the final case in hare's receive method to see if it catches arbitrary messages
+  within (1 second) {
+    hareRef ! TimeMillis
+    expectMsg(Time)
+  }
 }
