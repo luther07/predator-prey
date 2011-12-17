@@ -16,7 +16,8 @@ class World extends Actor {
    private val hares = new mutable.ArrayBuffer[akka.actor.ActorRef]()
    private val lynxs = new mutable.ArrayBuffer[akka.actor.ActorRef]()
    private var beginTime: Long = 0
-   private val hareLocations = new mutable.ArrayBuffer[Option[akka.actor.ActorRef]]()
+   private val WorldAreaUnits: Int = WorldConfiguration.worldWidth * WorldConfiguration.worldHeight
+   private val hareLocations = new mutable.ArraySeq[Option[akka.actor.ActorRef]](WorldAreaUnits)
 
    override def preStart {
       generateHares(WorldConfiguration.initialHares)
@@ -90,15 +91,16 @@ class World extends Actor {
 
    def deletehare(x: Int, y: Int) {
       val xyMap = y * WorldConfiguration.worldWidth + x
-      val mySender = None
-      hareLocations.insert(xyMap, mySender)
+      hareLocations(xyMap) = None
+      //hareLocations.insert(xyMap, mySender)
    }
 
    // can overwrite another hare, then the later hare can get eaten, because the index has its reference
    def addhare(x: Int, y: Int) {
       val xyMap = y * WorldConfiguration.worldWidth + x
       val mySender = self.getSender()
-      hareLocations.insert(xyMap, mySender)
+      hareLocations(xyMap) = mySender
+      //hareLocations.insert(xyMap, mySender)
    }
 
    def findHare(x: Int, y: Int) {
@@ -107,10 +109,11 @@ class World extends Actor {
       maybeHare match {
          case Some(x: akka.actor.ActorRef) => { 
             x ! PoisonPill
-            hareLocations.insert(xyMap, None)
+            hareLocations(xyMap) = None
+            //hareLocations.insert(xyMap, None)
             self.reply(EatHareEnergy)
          }
-         case None => 
+         case (_) => 
       }
    }
 
