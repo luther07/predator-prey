@@ -2,3 +2,5 @@ Predator-prey simulation with Akka actors.
 
 Per akka docs, ! means "fire-and-forget", asynchronously, also known as "tell".
 Per akka docs, ? sends a message asynchronously, and returns a Future immediately. This Future represents a possible reply, also known as "ask".
+
+We are using sbt to run the simulations. I have renamed the file to build.sbt.txt so that you can change it if you want to use sbt.
