@@ -34,27 +34,28 @@ class Lynx(val id: Int) extends Actor {
          // other sequential work before asking for the time again
          // query, can reproduce? Implement function.
          move()
-         useEnergy()
-         tryToEatHare(n)
+         updateEnergy()
+         checkForHare()
          checkForDeath()
          reproduce(n)
          // query, die of old age? Implement function.
          naturaldeath(n)
          // Move. Implement function.
+         self.reply(EatHareEnergy)
          //println("[l" + id + "] received time from world")
+         
          self.reply(Time)
       }
       case (_) => self.reply(Time)
    }
    
-   def useEnergy() {
+   def updateEnergy() {
        energy = energy - 1
    }
-   
-   def tryToEatHare(n : Long) {	
-//       self.reply(lynxLocation(lynxX, lynxY))
-   }   
-   
+   def checkForHare() {
+	   energy = energy + WorldConfiguration.energyPerEatenHare
+       self.reply(EatHareEnergy)
+   }
    
    def checkForDeath(){
        if(energy == 0){
